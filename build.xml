@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="hbcall" default="war">  
+  
+    <path id="compile.classpath">  
+        <fileset dir="WebRoot/WEB-INF/lib">  
+            <include name="*.jar"/>  
+        </fileset>  
+    </path>  
+      
+    <target name="init">  
+        <mkdir dir="build/classes"/>  
+        <mkdir dir="dist" />  
+    </target>  
+      
+    <!--<target name="compile" depends="init" >  
+        <javac destdir="build/classes" debug="true" srcdir="src">  
+            <classpath refid="compile.classpath"/>  
+        </javac>  
+    </target>-->  
+    <target name="copymapper" description="copy mapper文件">  
+            <mkdir dir="build/config" />  
+            <copy todir="build/config">  
+                <fileset dir="config">  
+                    <include name="**/*.xml" />  
+                </fileset>  
+            </copy>  
+    </target>  
+      
+    <target name="compile" depends="init" description="compile the source files">  
+    <javac srcdir="src" destdir="build/classes" target="1.8" includeantruntime="on">  
+    <classpath refid="compile.classpath"/>  
+    </javac>  
+    </target>  
+      
+    <target name="war" depends="compile">  
+        <war destfile="dist/zhao.war" webxml="WebRoot/WEB-INF/web.xml">  
+            <fileset dir="WebRoot"/>  
+            <lib dir="WebRoot/WEB-INF/lib"/>  
+            <classes dir="build/classes"/>  
+        </war>  
+    </target>  
+      
+    <!--<target name="clean">  
+        <delete dir="dist" />  
+        <delete dir="build" />  
+    </target>-->  
+      
+</project>  
